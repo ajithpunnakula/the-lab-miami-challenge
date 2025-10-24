@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from api import sync, remind, stats, digest
+from calendar_agent.api import sync, remind, stats, digest
 from dotenv import load_dotenv
 
 load_dotenv()

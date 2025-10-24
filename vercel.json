@@ -19,24 +19,7 @@
   "env": {
     "PYTHON_VERSION": "3.11"
   },
-  "functions": {
-    "calendar_agent/main.py": {
-      "maxDuration": 30
-    }
-  },
   "crons": [
-    {
-      "path": "/api/sync",
-      "schedule": "0 */6 * * *"
-    },
-    {
-      "path": "/api/remind",
-      "schedule": "*/15 * * * *"
-    },
-    {
-      "path": "/api/updates",
-      "schedule": "*/5 * * * *"
-    },
     {
       "path": "/api/digest",
       "schedule": "0 9 * * 1"

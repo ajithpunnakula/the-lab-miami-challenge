@@ -1,7 +1,7 @@
 import os
 from datetime import datetime, timedelta
 from typing import List, Dict, Any
-from utils.luma_scraper import LumaScraper
+from calendar_agent.utils.luma_scraper import LumaScraper
 
 class EventService:
     """Service for fetching and filtering events directly from Luma"""

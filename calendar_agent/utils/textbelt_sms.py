@@ -1,6 +1,6 @@
 import httpx
 from typing import Dict, Any, Optional
-from utils.ai_summarizer import AISummarizer
+from calendar_agent.utils.ai_summarizer import AISummarizer
 
 class TextBeltSMSClient:
     def __init__(self, api_key: str, to_number: str = "2098129451"):

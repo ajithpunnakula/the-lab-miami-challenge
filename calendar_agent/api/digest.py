@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException
 from datetime import datetime
 import os
-from utils.event_service import EventService
-from utils.textbelt_sms import TextBeltSMSClient
+from calendar_agent.utils.event_service import EventService
+from calendar_agent.utils.textbelt_sms import TextBeltSMSClient
 
 router = APIRouter()
 
