@@ -134,3 +134,61 @@ async def send_live_updates():
         raise HTTPException(status_code=500, detail=str(e))
     finally:
         await sms_client.close()
+@router.post("/demo")
+async def send_demo_sms():
+    """Demo endpoint: Send SMS with next planned event regardless of timing"""
+    try:
+        event_service = EventService()
+        sms_client = TextBeltSMSClient(
+            api_key=os.getenv("TEXTBELT_API_KEY"),
+            to_number=os.getenv("SMS_TO_NUMBER", "+12098128451")
+        )
+        
+        # Get all upcoming events
+        upcoming_events = await event_service.get_upcoming_events()
+        
+        if not upcoming_events:
+            # Send a message saying no events found
+            message = "🤖 Demo SMS from Calendar Agent!
+
+📅 No upcoming events found on The Lab Miami calendar.
+
+✅ SMS integration working!"
+            result = await sms_client.send_sms(message)
+        else:
+            # Send info about the next event
+            next_event = upcoming_events[0]
+            event_time = datetime.fromisoformat(next_event["start_time"])
+            formatted_time = event_time.strftime("%m/%d at %I:%M %p")
+            
+            message = f"🤖 Demo: Next Lab Event!
+
+📅 {next_event[\"title\"]}
+⏰ {formatted_time}
+🔗 {next_event[\"link\"]}
+
+✅ SMS working!"
+            result = await sms_client.send_sms(message)
+        
+        if result["success"]:
+            return {
+                "status": "demo_success",
+                "message_sent": True,
+                "events_found": len(upcoming_events),
+                "message_id": result.get("message_id"),
+                "quota_remaining": result.get("quota_remaining"),
+                "service": result.get("service", "TextBelt"),
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            return {
+                "status": "demo_failed",
+                "message_sent": False,
+                "error": result.get("error"),
+                "events_found": len(upcoming_events),
+                "timestamp": datetime.utcnow().isoformat()
+            }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        await sms_client.close()
