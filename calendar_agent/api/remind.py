@@ -149,7 +149,7 @@ async def send_demo_sms():
         
         if not upcoming_events:
             # Send a message saying no events found
-            message = "🤖 Demo SMS from Calendar Agent!\\n\\n📅 No upcoming events found on The Lab Miami calendar.\\n\\n✅ SMS integration working!"
+            message = "📅 No upcoming events found on The Lab Miami calendar."
             result = await sms_client.send_sms(message)
         else:
             # Send info about the next event
@@ -157,7 +157,7 @@ async def send_demo_sms():
             event_time = datetime.fromisoformat(next_event["start_time"])
             formatted_time = event_time.strftime("%m/%d at %I:%M %p")
             
-            message = f"🤖 Demo: Next Lab Event!\\n\\n📅 {next_event['title']}\\n⏰ {formatted_time}\\n🔗 {next_event['link']}\\n\\n✅ SMS working!"
+            message = f"📅 Next Lab Event:\\n\\n{next_event['title']}\\n⏰ {formatted_time}\\n🔗 {next_event['link']}"
             result = await sms_client.send_sms(message)
         
         if result["success"]:
