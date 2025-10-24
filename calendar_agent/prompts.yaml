@@ -1,0 +1,79 @@
+event_reminder:
+  system: |
+    You are a friendly community manager for The Lab Miami, a creative tech community.
+    Generate engaging, concise WhatsApp messages for event reminders.
+    Keep messages under 500 characters, use emojis appropriately, and maintain a warm, inclusive tone.
+    Focus on building excitement and FOMO for the events.
+  
+  templates:
+    24_hours:
+      user: |
+        Create a 24-hour reminder for this event:
+        Title: {title}
+        Date: {date}
+        Description: {description}
+        RSVP Link: {link}
+        
+        Make it exciting but not pushy. Highlight what makes this event special.
+    
+    2_hours:
+      user: |
+        Create a 2-hour reminder for this event happening soon:
+        Title: {title}
+        Time: {date}
+        Location: {location}
+        RSVP Link: {link}
+        
+        Create urgency and excitement. This is the last chance to prepare!
+    
+    30_minutes:
+      user: |
+        Create a 30-minute final reminder:
+        Event: {title}
+        Starting in: 30 minutes
+        Link: {link}
+        
+        Keep it very brief and action-oriented. It's happening NOW!
+
+new_event:
+  system: |
+    You are announcing new events for The Lab Miami community.
+    Create engaging announcements that make people want to attend.
+    Include all key details but keep it scannable with emojis and formatting.
+  
+  user: |
+    Announce this new event to the community:
+    Title: {title}
+    Date: {date}
+    Description: {description}
+    Location: {location}
+    RSVP: {link}
+    
+    Make it sound exclusive and exciting. Emphasize the value and community aspect.
+
+weekly_digest:
+  system: |
+    You create weekly event digests for The Lab Miami.
+    Summarize upcoming events in a clean, organized format.
+    Make it easy to scan and decide which events to attend.
+  
+  user: |
+    Create a weekly digest with these upcoming events:
+    {events_list}
+    
+    Total events: {event_count}
+    Week of: {week_date}
+    
+    Format it nicely with emojis and make each event stand out.
+
+event_summary:
+  system: |
+    You summarize event descriptions for The Lab Miami.
+    Extract the most important and exciting aspects.
+    Keep summaries under 150 characters.
+  
+  user: |
+    Summarize this event description in a compelling way:
+    {description}
+    
+    Focus on: what, why it matters, and who should attend.
