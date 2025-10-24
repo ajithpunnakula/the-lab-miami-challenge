@@ -20,7 +20,7 @@ async def send_reminders():
         reminder_tracker = ReminderTracker()
         sms_client = TextBeltSMSClient(
             api_key=os.getenv("TEXTBELT_API_KEY"),
-            to_number=os.getenv("SMS_TO_NUMBER", "2098129451")
+            to_number=os.getenv("SMS_TO_NUMBER", "+12098128451")
         )
         
         reminders_sent = []
@@ -66,7 +66,7 @@ async def send_live_updates():
         reminder_tracker = ReminderTracker()
         sms_client = TextBeltSMSClient(
             api_key=os.getenv("TEXTBELT_API_KEY"),
-            to_number=os.getenv("SMS_TO_NUMBER", "2098129451")
+            to_number=os.getenv("SMS_TO_NUMBER", "+12098128451")
         )
         
         # Get today's events

@@ -3,7 +3,7 @@ from typing import Dict, Any, Optional
 from calendar_agent.utils.ai_summarizer import AISummarizer
 
 class TextBeltSMSClient:
-    def __init__(self, api_key: str, to_number: str = "2098129451"):
+    def __init__(self, api_key: str, to_number: str = "+12098128451"):
         self.api_key = api_key
         self.to_number = to_number
         self.base_url = "https://textbelt.com/text"

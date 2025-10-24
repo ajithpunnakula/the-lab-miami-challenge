@@ -12,7 +12,7 @@ async def send_weekly_digest():
         event_service = EventService()
         sms_client = TextBeltSMSClient(
             api_key=os.getenv("TEXTBELT_API_KEY"),
-            to_number=os.getenv("SMS_TO_NUMBER", "2098129451")
+            to_number=os.getenv("SMS_TO_NUMBER", "+12098128451")
         )
         
         upcoming_events = await event_service.get_upcoming_events()
