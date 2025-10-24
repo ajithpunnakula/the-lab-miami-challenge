@@ -187,8 +187,10 @@ async def send_demo_sms():
 async def test_scraper():
     """Test endpoint to debug the Luma scraper"""
     try:
-        event_service = EventService()
-        events = await event_service.fetch_all_events()
+        # Direct test of the scraper
+        from calendar_agent.utils.luma_scraper import LumaScraper
+        scraper = LumaScraper("https://lu.ma/usr-vZ7w2FE5gUi7f1Y")
+        events = await scraper.fetch_events()
         return {
             "status": "success",
             "events_found": len(events),
@@ -197,3 +199,39 @@ async def test_scraper():
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@router.post("/force-demo")
+async def force_demo_sms():
+    """Force demo SMS with guaranteed event data"""
+    try:
+        sms_client = TextBeltSMSClient(
+            api_key=os.getenv("TEXTBELT_API_KEY"),
+            to_number=os.getenv("SMS_TO_NUMBER", "+12098128451")
+        )
+        
+        # Force a sample event
+        event_time = datetime.utcnow() + timedelta(days=2)
+        formatted_time = event_time.strftime("%m/%d at %I:%M %p")
+        
+        message = f"📅 Next Lab Event:\\n\\nThe Lab Miami Community Meetup\\n⏰ {formatted_time}\\n🔗 https://lu.ma/the-lab-miami"
+        result = await sms_client.send_sms(message)
+        
+        if result["success"]:
+            return {
+                "status": "force_demo_success",
+                "message_sent": True,
+                "message_id": result.get("message_id"),
+                "quota_remaining": result.get("quota_remaining"),
+                "service": result.get("service", "TextBelt"),
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        else:
+            return {
+                "status": "force_demo_failed",
+                "error": result.get("error"),
+                "timestamp": datetime.utcnow().isoformat()
+            }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        await sms_client.close()
