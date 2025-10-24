@@ -157,7 +157,7 @@ async def send_demo_sms():
             event_time = datetime.fromisoformat(next_event["start_time"])
             formatted_time = event_time.strftime("%m/%d at %I:%M %p")
             
-            message = f"📅 Next Lab Event:\\n\\n{next_event['title']}\\n⏰ {formatted_time}\\n🔗 {next_event['link']}"
+            message = f"📅 Next Lab Event:\\n\\n{next_event['title']}\\n⏰ {formatted_time}\\n📍 {next_event.get('location', 'Miami, FL')}"
             result = await sms_client.send_sms(message)
         
         if result["success"]:
@@ -213,7 +213,7 @@ async def force_demo_sms():
         event_time = datetime.utcnow() + timedelta(days=2)
         formatted_time = event_time.strftime("%m/%d at %I:%M %p")
         
-        message = f"📅 Next Lab Event:\\n\\nThe Lab Miami Community Meetup\\n⏰ {formatted_time}\\n🔗 https://lu.ma/the-lab-miami"
+        message = f"📅 Next Lab Event:\\n\\nThe Lab Miami Community Meetup\\n⏰ {formatted_time}\\n📍 Miami, FL"
         result = await sms_client.send_sms(message)
         
         if result["success"]:
