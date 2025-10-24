@@ -182,3 +182,18 @@ async def send_demo_sms():
         raise HTTPException(status_code=500, detail=str(e))
     finally:
         await sms_client.close()
+
+@router.get("/test-scraper")
+async def test_scraper():
+    """Test endpoint to debug the Luma scraper"""
+    try:
+        event_service = EventService()
+        events = await event_service.fetch_all_events()
+        return {
+            "status": "success",
+            "events_found": len(events),
+            "events": events,
+            "timestamp": datetime.utcnow().isoformat()
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
